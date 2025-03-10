@@ -1,7 +1,7 @@
-import 'package:expense_tracker_nurs/expenses_list.dart';
+import 'package:expense_tracker_nurs/widgets/expenses_list/expenses_list.dart';
 import 'package:flutter/material.dart';
 
-import 'models/expense.dart';
+import '../models/expense.dart';
 
 class Expenses extends StatefulWidget {
   const Expenses({super.key});
@@ -28,7 +28,7 @@ class _ExpensesState extends State<Expenses> {
       body: Column(
         children: [
           Text('The chart'),
-          ExpensesList(expenses: _registeredExpenses)
+          Expanded(child: ExpensesList(expenses: _registeredExpenses))
         ],
       ),
     );
