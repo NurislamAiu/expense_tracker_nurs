@@ -38,7 +38,7 @@ void main() {
                 backgroundColor: kColorScheme.primaryContainer),
           ),
         ),
-        themeMode: ThemeMode.system,
+        themeMode: ThemeMode.light,
         debugShowCheckedModeBanner: false,
         home: Expenses()));
   });
