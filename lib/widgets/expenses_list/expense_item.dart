@@ -9,30 +9,65 @@ class ExpenseItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              expense.title,
-              style: TextStyle(fontSize: 16, color: Colors.black, fontWeight: FontWeight.bold),
-            ),
-            SizedBox(height: 4),
-            Row(
-              children: [
-                Text('\$${expense.amount.toStringAsFixed(2)}'),
-                Spacer(),
-                Row(
-                  children: [
-                    Icon(categoryIcons[expense.category]),
-                    SizedBox(width: 8),
-                    Text(expense.formattedDate)
-                  ],
-                )
-              ],
-            ),
-          ],
+      elevation: 6,
+      margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(16),
+      ),
+      child: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              Colors.indigo.shade400,
+              Colors.purple.shade400,
+            ],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+          borderRadius: BorderRadius.circular(16),
+        ),
+        child: Padding(
+          padding: EdgeInsets.all(16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                expense.title,
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ),
+              SizedBox(height: 8),
+              Row(
+                children: [
+                  Text(
+                    '\$${expense.amount.toStringAsFixed(2)}',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.white,
+                    ),
+                  ),
+                  Spacer(),
+                  Row(
+                    children: [
+                      Icon(
+                        categoryIcons[expense.category] ?? Icons.help_outline,
+                        color: Colors.white,
+                      ),
+                      SizedBox(width: 8),
+                      Text(
+                        expense.formattedDate,
+                        style: TextStyle(color: Colors.white70),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

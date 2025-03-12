@@ -13,16 +13,17 @@ class ChartBar extends StatelessWidget {
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 4),
         child: FractionallySizedBox(
-          heightFactor: fill,
+          heightFactor: fill == 0 ? 0.05 : fill,
           child: DecoratedBox(
             decoration: BoxDecoration(
-              shape: BoxShape.rectangle,
-              borderRadius: BorderRadius.vertical(
-                top: Radius.circular(8),
+              borderRadius: BorderRadius.circular(12),
+              gradient: LinearGradient(
+                colors: isDarkMode
+                    ? [Colors.indigo.shade800, Colors.purple.shade800]
+                    : [Colors.indigo.shade300, Colors.purple.shade400],
+                begin: Alignment.bottomCenter,
+                end: Alignment.topCenter,
               ),
-              color: isDarkMode
-                  ? Theme.of(context).colorScheme.secondary
-                  : Theme.of(context).colorScheme.primary.withOpacity(0.65),
             ),
           ),
         ),
