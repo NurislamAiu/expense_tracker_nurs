@@ -15,10 +15,10 @@ class Expenses extends StatefulWidget {
 class _ExpensesState extends State<Expenses> {
   final List<Expense> _registeredExpenses = [
     Expense(
-        title: 'Flutter Course',
+        title: 'Tajweed Course',
         amount: 19.99,
         date: DateTime.now(),
-        category: Category.work),
+        category: Category.travel),
     Expense(
         title: 'Flutter Course',
         amount: 19.99,
@@ -44,19 +44,28 @@ class _ExpensesState extends State<Expenses> {
 
   void _removeExpense(Expense expense) {
     final expenseIndex = _registeredExpenses.indexOf(expense);
+
+    if (expenseIndex == -1) return; // Проверка, существует ли элемент в списке
+
+    final deletedExpense = _registeredExpenses[expenseIndex]; // Сохраняем копию объекта
+
     setState(() {
-      _registeredExpenses.remove(expense);
+      _registeredExpenses.removeAt(expenseIndex);
     });
+
     ScaffoldMessenger.of(context).clearSnackBars();
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         duration: Duration(seconds: 3),
-        content: Text("Expense: ${_registeredExpenses[expenseIndex].title} deleted"),
-        action: SnackBarAction(label: 'Undo', onPressed: (){
-          setState(() {
-            _registeredExpenses.insert(expenseIndex, expense);
-          });
-        }),
+        content: Text("Expense: ${deletedExpense.title} deleted"), // Используем сохранённый объект
+        action: SnackBarAction(
+          label: 'Undo',
+          onPressed: () {
+            setState(() {
+              _registeredExpenses.insert(expenseIndex, deletedExpense);
+            });
+          },
+        ),
       ),
     );
   }

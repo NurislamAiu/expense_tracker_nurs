@@ -30,8 +30,9 @@ class Chart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isDarkMode =
-        MediaQuery.of(context).platformBrightness == Brightness.dark;
+    final isDarkMode = MediaQuery.of(context).platformBrightness == Brightness.dark;
+    final localBuckets = buckets;
+
     return Container(
       margin: EdgeInsets.all(16),
       padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
@@ -53,33 +54,27 @@ class Chart extends StatelessWidget {
           Expanded(
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                for (final bucket in buckets)
+              children: localBuckets
+                  .map((bucket) =>
                   ChartBar(
-                    fill: bucket.totalExpenses / maxTotalExpense,
+                    fill: maxTotalExpense == 0 ? 0 : bucket.totalExpenses / maxTotalExpense,
                   ),
-              ],
+              )
+                  .toList(),
             ),
           ),
           SizedBox(height: 12),
           Row(
-            children: buckets
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: localBuckets
                 .map(
-                  (bucket) => Expanded(
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 4),
-                      child: Icon(
-                        categoryIcons[bucket.category],
-                        color: isDarkMode
-                            ? Theme.of(context).colorScheme.secondary
-                            : Theme.of(context)
-                                .colorScheme
-                                .primary
-                                .withOpacity(0.7),
-                      ),
-                    ),
-                  ),
-                )
+                  (bucket) => Icon(
+                categoryIcons[bucket.category],
+                color: isDarkMode
+                    ? Theme.of(context).colorScheme.secondary
+                    : Theme.of(context).colorScheme.primary.withOpacity(0.7),
+              ),
+            )
                 .toList(),
           ),
         ],
